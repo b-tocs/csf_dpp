@@ -58,7 +58,9 @@ podman ps
 
  A portainer instance should be runnung now.
 
-#### 1.8 Prepare Portainer
+### 2. Portainer
+
+#### 2.1 First login
 
 - Open https://<yourip>:9443 with a browser
 - Confirm unsecure connection
@@ -66,16 +68,43 @@ podman ps
 - Create User
 - Select `Get Started`
 - Select the displayed environment
+
+#### 2.2 Check volumes and networks
 - Enter `Volumes`
     - Select `portainer_data` 
     - Check the storage location: `/var/lib/containers/storage/volumes/portainer_data`
 - Enter `Networks` and check the networks `intern` and `extern`
 
-#### 1.9 Reboot and check again
+#### 2.3 Portainer update
+
+```bash
+cd ~
+./portainer_update.sh
+podman ps
+```
+
+Your portainer should be running.
+
+#### 2.4 Stop and backup data
+
+If you want to make a manually backup the container should be stopped before.
+
+```bash
+podman stop portainer
+tar cvzf ~/backup_portainer_data.tgz /var/lib/containers/storage/volumes/portainer*
+podman start portainer
+```
+
+
+#### 2.5 Reboot and check again
 ```bash
 apt-get update && apt-get upgrade -y
 reboot
 ```
+
+After reboot login again and check if portainer is running.
+
+
 
 ### 2. Configure Containers and stacks
 
