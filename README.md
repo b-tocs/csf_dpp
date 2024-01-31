@@ -6,10 +6,17 @@ Container Service Farm based on Debian, Podman, Portainer
 ## Installation
 
 ### 1. Login as root to a new installed Debian 12 Linux Server
+
+```bash
+apt-get update && apt-get upgrade -y
+```
+
+If a popup appears - select install new version of maintainer.
+
 ### 2. Install git
 
 ```bash
-apt-get install git
+apt-get install git -y
 ```
 
 ### 3. Clone csf_dpp repository
@@ -36,6 +43,9 @@ chmod +x *.sh
 cd ~
 ./install_dpp.sh
 ```
+
+You will be asked for a Fullname of the new user `container`. Enter "Container" and leave the other fields empty.
+Confirm with `Y`.
 
 ### 7. check portainer is running
 ```bash
