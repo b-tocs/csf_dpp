@@ -55,10 +55,13 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 If you want to make a manually backup the container should be stopped before.
 
 ```bash
+cd ~
 podman stop portainer
 tar cvzf ~/backup_portainer_data.tgz /var/lib/containers/storage/volumes/portainer*
 podman start portainer
+ls -l
 ```
+The backup file is saved to the root home directory.
 
 
 ### 2.6 Portainer update
@@ -78,6 +81,7 @@ podman ps
 
 
 ### 2.7 Reboot and check again
+
 ```bash
 apt-get update && apt-get upgrade -y
 reboot
