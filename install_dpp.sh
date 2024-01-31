@@ -3,7 +3,7 @@
 # update and install tools
 echo "Update and prepare server..."
 apt-get update && apt-get upgrade -y
-apt-get install git btop slirp4netns -y
+apt-get install btop slirp4netns -y
 echo "Server prepared."
 
 # ========= prepare and install podman
