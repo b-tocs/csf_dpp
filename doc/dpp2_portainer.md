@@ -48,7 +48,7 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 - check column `Published Ports`: Port 8080 is open the the internet!
 - Open http://<yourip>:8080 and see `Stirling PDF` Web toolbox
 
-
+![Striling PDF UI](stirling_ui.gif)
 
 ### 2.5 Stop and backup data
 
