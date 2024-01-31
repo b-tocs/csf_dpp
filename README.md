@@ -1,6 +1,7 @@
-# B-Tocs Container Service Farm - Debian, Podman, Portainer
+# B-Tocs Container Service Farm DPP
 
-Container Service Farm based on Debian, Podman, Portainer
+B-Tocs Container Service Farm based on Debian, Podman, Portainer.
+This is a reference container host stack to demonstrate B-Tocss container scenarios.
 
 
 ## Installation
