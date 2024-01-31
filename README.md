@@ -5,40 +5,44 @@ Container Service Farm based on Debian, Podman, Portainer
 
 ## Installation
 
-### 1. Login as root to a new installed Debian 12 Linux Server
+### 1. Prepare server
+
+####  1.1 First ssh login
+
+Login as root to a new installed Debian 12 Linux Server.
 
 ```bash
 apt-get update && apt-get upgrade -y
 ```
 
-If a popup appears - select install new version of maintainer.
+If popups appear - select new versions of the maintainers.
 
-### 2. Install git
+#### 1.2 Install git
 
 ```bash
 apt-get install git -y
 ```
 
-### 3. Clone csf_dpp repository
+#### 1.3 Clone csf_dpp repository
 ```bash
 cd ~
 git clone https://github.com/b-tocs/csf_dpp.git
 ```
 
-### 4. Copy Scripts
+#### 1.4 Copy Scripts
 
 ```bash
 cd csf_dpp
 cp *.sh ~
 ```
 
-### 5. Make scripts executable
+#### 1.5 Make scripts executable
 ```bash
 cd ~
 chmod +x *.sh
 ```
 
-### 6. Install this DPP container service stack
+#### 1.6 Install this DPP container service stack
 ```bash
 cd ~
 ./install_dpp.sh
@@ -47,22 +51,32 @@ cd ~
 You will be asked for a Fullname of the new user `container`. Enter "Container" and leave the other fields empty.
 Confirm with `Y`.
 
-### 7. check portainer is running
+#### 1.7 check portainer is running
 ```bash
 podman ps
 ```
 
-### 8. Login to portainer and set new password
+ A portainer instance should be runnung now.
+
+#### 1.8 Prepare Portainer
 
 - Open https://<yourip>:9443 with a browser
+- Confirm unsecure connection
 - Enter a new administrator email and a strong password
+- Create User
+- Select `Get Started`
+- Select the displayed environment
+- Enter `Volumes`
+    - Select `portainer_data` 
+    - Check the storage location: `/var/lib/containers/storage/volumes/portainer_data`
+- Enter `Networks` and check the networks `intern` and `extern`
 
-### 9. Reboot and check
+#### 1.9 Reboot and check again
 ```bash
 apt-get update && apt-get upgrade -y
 reboot
 ```
 
-### 10. Work with the stack
+### 2. Configure Containers and stacks
 
-Your server is ready for serving cool container stuff. Enjoy!
+### 3. Secure the server

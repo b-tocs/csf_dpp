@@ -30,11 +30,14 @@ podman --version
 
 
 # ========== install portainer
-echo "Install podman ..."
-podman pull portainer/portainer-ce
+echo "Install portainer ..."
+podman pull docker.io/portainer/portainer-ce
+
 podman volume create portainer_data
+podman network create extern
+podman network create intern --internal
 
 podman run -d -p 9443:9443 --privileged --restart=always -v portainer_data:/data -v /run/podman/podman.sock:/var/run/docker.sock:Z --name portainer portainer/portainer-ce
 
-echo "portainer installed."
+echo "Portainer installed."
 podman ps
