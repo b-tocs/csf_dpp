@@ -57,7 +57,13 @@ Confirm with `Y`.
 podman ps
 ```
 
- A portainer instance should be runnung now.
+ A portainer instance should be running now.
+
+### 1.8 Check Portainer 
+
+- Open https://<yourip>:9443 with a browser
+- Confirm unsecure connection
+
 
 ### 2. Portainer
 
