@@ -44,6 +44,9 @@ services:
 - Understand the error
 - delete container spdf
 - prefer stacks
+- reopen the page and see the Stirling PDF UI.
+
+![S-PDF](stirling_ui.gif)
 
 ### 3.4 Install a stack with volumes
 
@@ -108,6 +111,7 @@ services:
 
 ### 3.5 Stack with multiple containers
 
+#### 3.5.1 Odoo stack
 - This will configure a "Odoo 17" stack - [see docker hub for more details](https://hub.docker.com/_/odoo)
 - add a new stack `odoo` with the following compose script
 - use the following compose script
@@ -163,6 +167,7 @@ services:
     networks:
       - default
       - intern
+      - extern
     expose:
       - "8069"
     ports:
@@ -181,3 +186,20 @@ services:
 - container odoo-web-1 publish a port 8069
 - try to open http://<yourip>:8069
 
+#### 3.5.2 Odoo configuration
+
+- Remember the master key and enter the required info for odoo installation
+- Activate the flag demo data
+- Create your new instance
+- You can watch the log files from the odoo web ui container while installing
+- After installing you see the odoo inside view
+- in the top left menu you find the "Apps" feature
+- Choose "Website" and follow the installation guide
+- After installing logout and reopen as an anonymous web user
+
+
+#### 3.5.3 Odoo Website
+
+You have a opensource ERP installed with webseite, online shop and other useful things. Enjoy!
+
+![Odoo Website](odoo_shop.gif)
