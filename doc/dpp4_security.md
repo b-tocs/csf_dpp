@@ -503,9 +503,30 @@ flowchart TD
 - In the following popup enter at least a new email
 - In the next popup "Change Password" enter `changeme` as old password and a strong new password
 - Save
-- Go to `Settings` and change "Default Site" to option "404 page"
+- Go
+        end
+    
+ to `Settings` and change "Default Site" to optio2 "404 plibre
 
-### 4.3.4 Add proxy hosts for services
+port_9081-->container4_1
+        port_443-->container4_1
+        port_80-->container4_1        
+```
+
+- From a theoretical point of view there is a way from the outside internet to the stack services through the NginxPM container
+- NginxPM is a reverse proxy and works as a firewall - without configuration no access
+
+### 4.3.3 First Login to NginxPM
+
+- The setup information for the Nginx Proxy Manager can be found [here](https://nginxproxymanager.com/setup/)
+- Open http://<yourip>:9081 or http://mycsf:9081 with a web browser
+- Enter `admin@example.com` as email address and `changeme` for password
+- In the following popup enter at least a new email
+- In the next popup "Change Password" enter `changeme` as old password and a strong new password
+- Save
+- Go
+        
+### 4.3.4 Add proxy hosts for serviceshttp://translate.mycsf/
 
 #### 4.3.4.1 Stack spdf
 
@@ -517,7 +538,7 @@ flowchart TD
 | ----                    | ----                 | ----                                     |
 | Domain Names            | spdf.mycsf           | depends on 4.3.1, use your name instead  |
 | Schheme                 | http                 |                                          |
-| Forward Hostname / IP   | spdf-stirling-pd     | = the hostname of the container          |
+| Forward Hostname / IP   | spdf-stirling-pdf-1  | = the hostname of the container          |
 | Forward Port            | 8080                 | = the exposed port of the container      |
 | Cache Assets            | activated            | optional                                 |
 | Block Common Exploits   | activated            | optional                                 |
@@ -527,4 +548,66 @@ flowchart TD
 - Open http://spdf.mycsf/ or your dns name for spdf service in a browser
 - The Stirling PDF UI should appear.
 
+
+#### 4.3.4.2 Stack libre
+
+- Within the NginxPM UI to to "Hosts" and "Proxy Hosts"
+- Select "Add Proxy Host"
+- Enter the following information in area "Details"
+
+|Field                    | Value                | Remarks                                  |
+| ----                    | ----                 | ----                                     |
+| Domain Names            | translate.mycsf      | depends on 4.3.1, use your name instead  |
+| Schheme                 | http                 |                                          |
+| Forward Hostname / IP   | libre-libre-1        | = the hostname of the container          |
+| Forward Port            | 5000                 | = the exposed port of the container      |
+| Cache Assets            | activated            | optional                                 |
+| Block Common Exploits   | activated            | optional                                 |
+| Websockets support      | activated            | optional                                 | 
+| Access List             | Publicity Accessible | can be changed later                     |
+
+- Open http://translate.mycsf  or your dns name for libre service in a browser
+- The LibreTranslate UI should appear
+
+
+#### 4.3.4.3 Stack odoo
+
+- Within the NginxPM UI to to "Hosts" and "Proxy Hosts"
+- Select "Add Proxy Host"
+- Enter the following information in area "Details"
+
+|Field                    | Value                | Remarks                                  |
+| ----                    | ----                 | ----                                     |
+| Domain Names            | odoo.mycsf           | depends on 4.3.1, use your name instead  |
+| Schheme                 | http                 |                                          |
+| Forward Hostname / IP   | odoo-web-1           | = the hostname of the container          |
+| Forward Port            | 8069                 | = the exposed port of the container      |
+| Cache Assets            | activated            | optional                                 |
+| Block Common Exploits   | activated            | optional                                 |
+| Websockets support      | activated            | optional                                 | 
+| Access List             | Publicity Accessible | can be changed later                     |
+
+- Open http://odoo.mycsf  or your dns name for odoo service in a browser
+- The Odoo website should appear
+
+
+#### 4.3.4.3 Stack nginxpm
+
+- Within the NginxPM UI to to "Hosts" and "Proxy Hosts"
+- Select "Add Proxy Host"
+- Enter the following information in area "Details"
+
+|Field                    | Value                | Remarks                                  |
+| ----                    | ----                 | ----                                     |
+| Domain Names            | npm.mycsf            | depends on 4.3.1, use your name instead  |
+| Schheme                 | http                 |                                          |
+| Forward Hostname / IP   | nginxpm-ui-1         | = the hostname of the container          |
+| Forward Port            | 81                   | = the exposed port of the container      |
+| Cache Assets            | activated            | optional                                 |
+| Block Common Exploits   | activated            | optional                                 |
+| Websockets support      | activated            | optional                                 | 
+| Access List             | Publicity Accessible | can be changed later                     |
+
+- Open http://npm.mycsf/login  or your dns name for odoo service in a browser
+- The Nginx Proxy Manager Login should appear
 
