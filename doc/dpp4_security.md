@@ -7,9 +7,9 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 
 ### 4.1 Published ports = Security risk
 
-- in the current situation all containers have a direct connection to the internet
-- https are not available, except for portainer
-- many possibilities for attackers
+- In the current situation all containers have a direct connection to the internet
+- HTTPS are not available, except for portainer
+- Many possibilities for attackers...
 
 ```mermaid
 flowchart TD
@@ -503,18 +503,8 @@ flowchart TD
 - In the following popup enter at least a new email
 - In the next popup "Change Password" enter `changeme` as old password and a strong new password
 - Save
-- Go
-        end
-    
- to `Settings` and change "Default Site" to optio2 "404 plibre
+- Go to `Settings` and change "Default Site" to optio2 "404 plibre
 
-port_9081-->container4_1
-        port_443-->container4_1
-        port_80-->container4_1        
-```
-
-- From a theoretical point of view there is a way from the outside internet to the stack services through the NginxPM container
-- NginxPM is a reverse proxy and works as a firewall - without configuration no access
 
 ### 4.3.3 First Login to NginxPM
 
@@ -608,6 +598,237 @@ port_9081-->container4_1
 | Websockets support      | activated            | optional                                 | 
 | Access List             | Publicity Accessible | can be changed later                     |
 
-- Open http://npm.mycsf/login  or your dns name for odoo service in a browser
+- Open http://npm.mycsf  or your dns name for odoo service in a browser
 - The Nginx Proxy Manager Login should appear
 
+
+### 4.3.5 Hide port 9081
+
+The port 9081 of nginxpm is unsaecure because without SSL/HTTPS. With the route via the nginxpm itself "http://npm.mycsf" an alternative route exists. 
+
+This is unsecure too but the exacts name must be known for correct routing. In a later step the access to npm can be switched to https.
+
+In this optional step the port 9081 will be disabled and can be enabled again by modifying the portainer stack config.
+
+- Go to the portainer stack `nginxpm` and deactiviate port 9081
+- Deploy the stack and check if port 9081 is hidden
+
+The stack config should be:
+
+```yaml
+version: "3"
+
+networks:
+  default:
+    internal: true
+  intern:
+    external: true
+  extern:
+    external: true
+
+volumes:
+  nginxpm_data:
+  nginxpm_letsencrypt: 
+
+services:
+  ui:
+    image: jc21/nginx-proxy-manager
+    restart: unless-stopped
+    networks:
+      - intern
+      - extern
+    ports:
+      - "80:80"
+      - "443:443"
+      #- "9081:81"
+    expose:
+      - "80"
+      - "81"
+      - "443" 
+    volumes:
+      - nginxpm_data:/data
+      - nginxpm_letsencrypt:/etc/letsencrypt 
+```
+
+### 4.3.5 Active port and service status
+
+The services are available now through the Nginx Proxy Manager and 
+
+```mermaid
+flowchart TD
+
+        subgraph net_route
+          spdf_mycsf["http://spdf.mycsf"]
+          translate_mycsf["http://translate.mycsf"]
+          odoo_mycsf["http://odoo.mycsf"]
+          npm_mycsf["http://npm.mycsf"]
+        end
+
+        subgraph Podman-Host
+            
+            subgraph External Net
+                port_22["22 - ssh"]
+                port_80["80 - http"]
+                port_443["443 - https"]
+                port_9443["9443 - portainer admin"]
+            end
+
+            subgraph Podman
+                portainer((Portainer))
+                net_intern{{Internal Net}}
+
+                subgraph stack_spdf
+                    container1_1(("Stirling PDF"))
+                end
+                container1_1-->net_intern
+
+                subgraph stack_libre
+                    container2_1(("LibreTranslate"))
+                end
+                container2_1-->net_intern
+
+                subgraph stack_odoo
+                    container3_1(("Odoo UI"))
+                    container3_2(("Odoo DB"))
+                end
+                container3_1-->container3_2
+                container3_1-->net_intern
+
+                subgraph stack_nginxpm
+                    container4_1(("NginxPM"))
+                end
+                container4_1-->net_intern
+                
+
+            end
+        end
+
+        spdf_mycsf-->port_80
+        translate_mycsf-->port_80
+        odoo_mycsf-->port_80
+        npm_mycsf-->port_80
+
+        port_9443-->portainer
+        port_443-->container4_1
+        port_80-->container4_1        
+```
+
+## 4.4 Securing NginxPM
+
+### 4.4.1 Access lists
+
+Access lists are an additional authorization layer. This adds "Basic Authentification" to the proxy host.
+
+#### 4.4.1.1 Maintain access list for services 
+
+- Go to the NginxPM UI 
+- Select `Add Access List`
+- Enter `services` as name and activate `Satisfy Any` 
+- Go to area `Authorization` and enter an user + password like `demo` 
+- Save
+
+
+#### 4.4.1.2 Secure the Odoo service with access lists
+
+- Go to the NginxPM UI 
+- Select `Hosts` -> `Proxy Hosts`
+- Edit the `odoo.mycsf´ proxy host entry
+- Select `services` for `Access List`
+- Save
+- Open the `http://odoo.mycsf` in another browser
+- A popup for entering `demo` + your password occurs
+
+### 4.4.2 Adding HTTPS/SSL
+
+The following steps are only available with an external domain. The free service [Let's encrypt](https://letsencrypt.org) is used here. There are workarounds available to get the certificates for internal domains too but this is not documented here.
+
+You will need a domain like `demo.yourdomain.com`.
+
+
+- Go to the NginxPM UI
+- Add a new proxy host for a service, e.g. the spdf like before except field `Domain Names`
+- Add your domain `demo.yourdomain.com` here instead of the former internal name
+- Go to area `SSL`
+- Select `Request a new SSL Certificate` in `SSL Certificate`
+- Activate: `Force SSL`, `HTTP/2 support`, `HSTS enabled` and `I Agree to...`
+- Press Save and wait
+- After a while the new entry should be appear as new proxy host in the list and with `Let's Encrypt` in column `SSL` instead of `HTTP only`
+- Open a browser and open `http://demo.yourdomain.com` 
+- You should see your service and the browser should be switched to https automatically
+- The browser should display a valid certificate
+
+### 4.4.3 Current port status
+
+Now your container farm supports HTTPS. If you modify all proxy hosts to SSL support, the port 80 will be forwarded to the HTTPS port 443. 
+
+```mermaid
+flowchart TD
+
+        subgraph net_route
+          spdf_mycsf["http://spdf.mycsf"]
+          translate_mycsf["http://translate.mycsf"]
+          odoo_mycsf["http://odoo.mycsf"]
+          npm_mycsf["http://npm.mycsf"]
+        end
+
+        subgraph Podman-Host
+            
+            subgraph External Net
+                port_22["22 - ssh"]
+                port_80["80 - http"]
+                port_443["443 - https"]
+                port_9443["9443 - portainer admin"]
+            end
+
+            subgraph Podman
+                portainer((Portainer))
+                net_intern{{Internal Net}}
+
+                subgraph stack_spdf
+                    container1_1(("Stirling PDF"))
+                end
+                container1_1-->net_intern
+
+                subgraph stack_libre
+                    container2_1(("LibreTranslate"))
+                end
+                container2_1-->net_intern
+
+                subgraph stack_odoo
+                    container3_1(("Odoo UI"))
+                    container3_2(("Odoo DB"))
+                end
+                container3_1-->container3_2
+                container3_1-->net_intern
+
+                subgraph stack_nginxpm
+                    container4_1(("NginxPM"))
+                end
+                container4_1-->net_intern
+                
+
+            end
+        end
+
+        spdf_mycsf-->port_443
+        translate_mycsf-->port_443
+        odoo_mycsf-->port_443
+        npm_mycsf-->port_443
+
+        port_9443-->portainer
+        port_443-->container4_1
+```
+
+
+## 4.5 Further security issues
+
+There are some more activities to securing the server. 
+
+Some ideas:
+- Install podman rootless - [see more](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md)
+- Do not use the root user to administrate the server - use an own user with sudo - [see more](https://www.cloudpanel.io/tutorial/how-to-add-user-to-sudoers-in-debian/)
+- Use ssh with public keys for other sudo users - [see more](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-debian-11)
+- Use a firewall on the server - [see more](https://www.cyberciti.biz/faq/set-up-a-firewall-with-ufw-on-debian-12-linux/)
+- Use a external firewall of your hosting partner (depends on your environment)
+
+If you have furter ideas contribute to this project. 
