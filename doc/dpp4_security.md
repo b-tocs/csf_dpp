@@ -7,7 +7,7 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 
 ### 4.1 Published ports = Security risk
 
-- In the current situation all containers have a direct connection to the internet
+- In the current situation all containers have a direct HTTP connection to the internet
 - HTTPS are not available, except for portainer
 - Many possibilities for attackers...
 
