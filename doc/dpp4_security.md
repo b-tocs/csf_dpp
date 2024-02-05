@@ -132,7 +132,7 @@ services:
 - deploy the changes
 - see the portainer container list: there are no published ports for the container `spdf-stirling-pdf-1`
 
-#### 4.2.2 hide the s-pdf container
+#### 4.2.2 hide the LibreTranslate container
 
 - Go to the portainer stack `libre` and open the stack config
 - The current config should be this:
@@ -217,7 +217,7 @@ services:
 - deploy the changes
 - see the portainer container list: there are no published ports for the container `libre-libre-1`
 
-#### 4.2.3 hide the odoo containers
+#### 4.2.3 hide the Odoo containers
 
 - Go to the portainer stack `odoo` and open the stack config
 - The current config should be this:
