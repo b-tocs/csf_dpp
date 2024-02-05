@@ -7,16 +7,34 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 
 ### 4.1 Published ports = Security risk
 
+- Attackers can break in via port 22 or hardware access
+​- Portainer access is secured by an HTTPS connection, but weak passwords or errors in the Portainer software can allow attackers into the server
 - In the current situation all containers have a direct HTTP connection to the internet
 - HTTPS are not available, except for portainer
 - Many possibilities for attackers...
+- Most important activities: strong passwords and regular updates
+
 
 ```mermaid
 flowchart TD
 
+        attacker(("Attacker"))
+        attacker-->Podman-Host
+        attacker-->port_22
+        attacker-->port_9443
+        attacker-->port_8080
+        attacker-->port_5000
+        attacker-->port_8069
+        attacker-->linux
+        port_22-->linux
+
+
         subgraph Podman-Host
+
+            linux["Linux OS"]
             
-            subgraph External Net
+            
+            subgraph External-Net
                 port_22["22 - ssh"]
                 port_9443["9443 - portainer admin"]
                 port_5000["5000 - LibreTranslate"]
