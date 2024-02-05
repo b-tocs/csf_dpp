@@ -535,7 +535,7 @@ flowchart TD
 - Save
 - Go
         
-### 4.3.4 Add proxy hosts for serviceshttp://translate.mycsf/
+### 4.3.4 Add proxy hosts for services
 
 #### 4.3.4.1 Stack spdf
 
