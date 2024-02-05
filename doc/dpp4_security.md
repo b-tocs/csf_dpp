@@ -10,7 +10,7 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 ![Current published ports](portainer_open_ports.gif)
 
 - Attackers can break in via port 22 or hardware access
-​- Portainer access is secured by an HTTPS connection, but weak passwords or errors in the Portainer software can allow attackers into the server
+- Portainer access is secured by an HTTPS connection, but weak passwords or errors in the Portainer software can allow attackers into the server
 - In the current situation all containers have a direct HTTP connection to the internet
 - HTTPS are not available, except for portainer
 - Many possibilities for attackers...
