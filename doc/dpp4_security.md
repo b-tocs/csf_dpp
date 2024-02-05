@@ -7,6 +7,8 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 
 ### 4.1 Published ports = Security risk
 
+![Current published ports](portainer_published_ports.gif)
+
 - Attackers can break in via port 22 or hardware access
 ​- Portainer access is secured by an HTTPS connection, but weak passwords or errors in the Portainer software can allow attackers into the server
 - In the current situation all containers have a direct HTTP connection to the internet
@@ -542,6 +544,9 @@ flowchart TD
 - Select "Add Proxy Host"
 - Enter the following information in area "Details"
 
+![NPM detail](nginxpm_proxy_detail.gif)
+
+
 |Field                    | Value                | Remarks                                  |
 | ----                    | ----                 | ----                                     |
 | Domain Names            | spdf.mycsf           | depends on 4.3.1, use your name instead  |
@@ -619,6 +624,10 @@ flowchart TD
 - Open http://npm.mycsf  or your dns name for odoo service in a browser
 - The Nginx Proxy Manager Login should appear
 
+#### 4.3.4.4 Configured names
+
+![current configured names](nginxpm_proxy_hosts.gif)
+
 
 ### 4.3.5 Hide port 9081
 
@@ -670,7 +679,7 @@ services:
 
 ### 4.3.5 Active port and service status
 
-The services are available now through the Nginx Proxy Manager and 
+The services are available now through the Nginx Proxy Manager and the http://npm.mycsf URL. 
 
 ```mermaid
 flowchart TD
@@ -769,6 +778,9 @@ You will need a domain like `demo.yourdomain.com`.
 - Go to area `SSL`
 - Select `Request a new SSL Certificate` in `SSL Certificate`
 - Activate: `Force SSL`, `HTTP/2 support`, `HSTS enabled` and `I Agree to...`
+
+![NPM SSL](nginxpm_proxy_ssl.gif)
+
 - Press Save and wait
 - After a while the new entry should be appear as new proxy host in the list and with `Let's Encrypt` in column `SSL` instead of `HTTP only`
 - Open a browser and open `http://demo.yourdomain.com` 
@@ -777,7 +789,11 @@ You will need a domain like `demo.yourdomain.com`.
 
 ### 4.4.3 Current port status
 
+![SSL for Stirling](nginxpm_proxy_ssl_list.gif)
+
 Now your container farm supports HTTPS. If you modify all proxy hosts to SSL support, the port 80 will be forwarded to the HTTPS port 443. 
+
+
 
 ```mermaid
 flowchart TD
@@ -849,4 +865,4 @@ Some ideas:
 - Use a firewall on the server - [see more](https://www.cyberciti.biz/faq/set-up-a-firewall-with-ufw-on-debian-12-linux/)
 - Use a external firewall of your hosting partner (depends on your environment)
 
-If you have furter ideas contribute to this project. 
+If you have further ideas contribute to this project. Thanks!
