@@ -7,7 +7,7 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 
 ### 4.1 Published ports = Security risk
 
-![Current published ports](portainer_published_ports.gif)
+![Current published ports](portainer_open_ports.gif)
 
 - Attackers can break in via port 22 or hardware access
 ​- Portainer access is secured by an HTTPS connection, but weak passwords or errors in the Portainer software can allow attackers into the server
@@ -462,7 +462,6 @@ services:
 - The new stack has two new volumes "nginxpm*" relevant for backup
 - See the new stack and the published ports 80, 443, 9081
 - Go to portainer container section and see all open ports
-
 
 ```mermaid
 flowchart TD
