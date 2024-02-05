@@ -603,7 +603,7 @@ flowchart TD
 | ----                    | ----                 | ----                                     |
 | Domain Names            | npm.mycsf            | depends on 4.3.1, use your name instead  |
 | Schheme                 | http                 |                                          |
-| Forward Hostname / IP   | nginxpm-ui-1         | = the hostname of the container          |
+| Forward Hostname / IP   | localhost         | = the hostname of the container          |
 | Forward Port            | 81                   | = the exposed port of the container      |
 | Cache Assets            | activated            | optional                                 |
 | Block Common Exploits   | activated            | optional                                 |
