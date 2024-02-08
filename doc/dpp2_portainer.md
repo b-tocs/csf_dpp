@@ -7,7 +7,7 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 
 ### 2.1 First login
 
-- Open https://<yourip>:9443 with a browser
+- Open https://YOUR_IP:9443 with a browser
 - Confirm unsecure connection
 - Enter a new administrator email and a strong password
 - Create User
@@ -46,7 +46,7 @@ This is a reference container host stack to demonstrate B-Tocss container scenar
 - Select `Deploy the container` and wait
 - check the new container `spdf` in `Containers`
 - check column `Published Ports`: Port 8080 is open the the internet!
-- Open http://<yourip>:8080 and see `Stirling PDF` Web toolbox
+- Open http://YOUR_IP:8080 and see `Stirling PDF` Web toolbox
 
 ![Striling PDF UI](stirling_ui.gif)
 

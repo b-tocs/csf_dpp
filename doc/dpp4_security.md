@@ -413,7 +413,7 @@ flowchart TD
 <your_ip>		npm.mycsf 
 ```
 
-<yourip> has to be replaced with the IP of your server, e.g. "192.168.0.100".
+YOUR_IP has to be replaced with the IP of your server, e.g. "192.168.0.100".
 
 
 
@@ -517,7 +517,7 @@ flowchart TD
 ### 4.3.3 First Login to NginxPM
 
 - The setup information for the Nginx Proxy Manager can be found [here](https://nginxproxymanager.com/setup/)
-- Open http://<yourip>:9081 or http://mycsf:9081 with a web browser
+- Open http://YOUR_IP:9081 or http://mycsf:9081 with a web browser
 - Enter `admin@example.com` as email address and `changeme` for password
 - In the following popup enter at least a new email
 - In the next popup "Change Password" enter `changeme` as old password and a strong new password

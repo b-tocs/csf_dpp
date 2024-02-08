@@ -91,14 +91,14 @@ services:
 
 - understand the parts networks, volumes and services
 - Depoloy the new stack
-- Try to open http://<yourip>:5000 - no success
+- Try to open http://YOUR_IP:5000 - no success
 - Go to portainer section `Container` select container `libre-libre-1`
 - Select 'Stats' and wait a moment until the network usage has 8GB reached
 
 
 ![Libre container status](libre_container_status.gif)
 
-- try to open http://<yourip>:5000 again
+- try to open http://YOUR_IP:5000 again
 - Now the LibreTranslate UI should be visible
 
 ![Libre UI](libre_ui.gif)
@@ -184,7 +184,7 @@ services:
 - Deploy the new stack and wait (for downloading new images)
 - In the portainer container section two new container "odoo*" should occur
 - container odoo-web-1 publish a port 8069
-- try to open http://<yourip>:8069
+- try to open http://YOUR_IP:8069
 
 #### 3.5.2 Odoo configuration
 

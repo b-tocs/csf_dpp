@@ -59,6 +59,6 @@ podman ps
 
 ### 1.8 Check Portainer 
 
-- Open https://<yourip>:9443 with a browser
+- Open https://YOUR_IP:9443 with a browser
 - Confirm unsecure connection
 
